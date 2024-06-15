@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Envelope Roxo</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #e0b3ff; /* Cor de fundo roxa clara */
+            margin: 0;
+        }
+
+        .envelope-container {
+            text-align: center;
+            position: relative;
+        }
+
+        .envelope {
+            width: 200px;
+            height: 150px;
+            background-color: #b366ff; /* Cor do envelope */
+            position: relative;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            overflow: hidden;
+            transition: height 0.3s ease;
+        }
+
+        .envelope.open {
+            height: 200px; /* Altura aumentada para mostrar a mensagem */
+        }
+
+        .envelope::before {
+            content: "";
+            position: absolute;
+            top: -40px;
+            left: 0;
+            right: 0;
+            width: 200px;
+            height: 40px;
+            background-color: #8000ff; /* Cor da aba do envelope */
+            clip-path: polygon(0 100%, 100% 100%, 50% 0);
+            transition: top 0.3s ease;
+        }
+
+        .envelope.open::before {
+            top: -80px; /* Mover a aba para cima ao abrir */
+        }
+
+        .message {
+            padding-top: 60px;
+            color: white;
+            font-size: 24px;
+            visibility: hidden;
+            transition: visibility 0.3s ease;
+        }
+
+        .envelope.open .message {
+            visibility: visible;
+        }
+
+        .buttons button {
+            background-color: #b366ff;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .buttons button:hover {
+            background-color: #8000ff;
+        }
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 100px;
+            pointer-events: none;
+            display: none;
+        }
+
+        .stars span {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #ffff66; /* Cor das estrelas */
+            border-radius: 50%;
+            animation: star-animation 1s linear infinite;
+        }
+
+        @keyframes star-animation {
+            from {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-100px) scale(0);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="envelope-container">
+        <div class="envelope" id="envelope">
+            <div class="message">Paçoca</div>
+            <div class="stars" id="stars">
+                <span style="top: 50px; left: 0;"></span>
+                <span style="top: 60px; left: 20px;"></span>
+                <span style="top: 70px; left: 40px;"></span>
+                <span style="top: 60px; left: 60px;"></span>
+                <span style="top: 50px; left: 80px;"></span>
+            </div>
+        </div>
+        <div class="buttons">
+            <button id="openBtn">OPEN</button>
+            <button id="resetBtn">RESET</button>
+        </div>
+    </div>
+    <script>
+        const envelope = document.getElementById('envelope');
+        const stars = document.getElementById('stars');
+        const openBtn = document.getElementById('openBtn');
+        const resetBtn = document.getElementById('resetBtn');
+
+        openBtn.addEventListener('click', () => {
+            envelope.classList.add('open');
+            stars.style.display = 'block';
+        });
+
+        resetBtn.addEventListener('click', () => {
+            envelope.classList.remove('open');
+            stars.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
